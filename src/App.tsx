@@ -21,6 +21,7 @@ import TeamView from "./components/TeamView";
 import BookingView from "./components/BookingView";
 import ContactView from "./components/ContactView";
 import WhatsAppButton from "./components/WhatsAppButton";
+import AIChatbot from "./components/AIChatbot";
 
 export default function App() {
   const [currentView, setView] = useState<string>("home");
@@ -81,6 +82,7 @@ export default function App() {
 
       {/* 4. Persistent Floating Interactive Elements */}
       <WhatsAppButton />
+      <AIChatbot />
 
     </div>
   );
