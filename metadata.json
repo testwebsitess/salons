@@ -1,0 +1,6 @@
+{
+  "name": "Zari Beauty Salon",
+  "description": "A premium and warm women's beauty salon and bridal studio based in Karachi, Pakistan, offering luxury hair, skin, nails, makeup, and bridal package services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
