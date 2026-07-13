@@ -108,7 +108,14 @@ export default function AIChatbot() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to communicate with AI server");
+        let errMsg = "Failed to communicate with AI server";
+        try {
+          const errData = await response.json();
+          if (errData && errData.error) {
+            errMsg = errData.error;
+          }
+        } catch (_) {}
+        throw new Error(errMsg);
       }
 
       const data = await response.json();
@@ -120,12 +127,12 @@ export default function AIChatbot() {
       };
 
       setMessages((prev) => [...prev, aiMsg]);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Chat error:", error);
       const errorMsg: ChatMessage = {
         id: `msg-error-${Date.now()}`,
         role: "model",
-        text: "I am sorry, sister, I had a little trouble connecting to the network. Could you please try again? Or feel free to reach our front desk directly at +92 321 8274799. 💖",
+        text: `I am sorry, sister, I had a little trouble processing your message. 🌸\n\n**Reason:** ${error.message || "Network error"}\n\nFeel free to try again, or reach our front desk directly at **+92 321 8274799**. 💕`,
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMsg]);
