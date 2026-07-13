@@ -114,10 +114,18 @@ Be encouraging, sweet, and focused on helping the sister find the perfect packag
 
       // Convert history from client format to Google GenAI contents format
       // Client format: { role: 'user' | 'model', text: string }
-      const contents = (history || []).map((msg: any) => ({
+      let contents = (history || []).map((msg: any) => ({
         role: msg.role === "user" ? "user" : "model",
         parts: [{ text: msg.text }],
       }));
+
+      // Ensure the contents array starts with a 'user' turn (Gemini API requirement)
+      const firstUserIdx = contents.findIndex((turn: any) => turn.role === "user");
+      if (firstUserIdx !== -1) {
+        contents = contents.slice(firstUserIdx);
+      } else {
+        contents = [];
+      }
 
       // Append current message
       contents.push({
